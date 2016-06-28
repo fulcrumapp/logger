@@ -29,6 +29,7 @@
     "bytes": "1",
     "chalk": "^1.0.0",
     "humanize-number": "~0.0.1",
+    "on-finished": "^2.3.0",
     "passthrough-counter": "^1.0.0"
   }
 }

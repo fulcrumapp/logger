@@ -6,6 +6,7 @@ var Counter = require('passthrough-counter');
 var humanize = require('humanize-number');
 var bytes = require('bytes');
 var chalk = require('chalk');
+var onFinished = require('on-finished');
 
 /**
  * TTY check for dev format.
@@ -70,17 +71,9 @@ function dev(opts) {
     var ctx = this;
     var res = this.res;
 
-    var onfinish = done.bind(null, 'finish');
-    var onclose = done.bind(null, 'close');
-
-    res.once('finish', onfinish);
-    res.once('close', onclose);
-
-    function done(event){
-      res.removeListener('finish', onfinish);
-      res.removeListener('close', onclose);
-      log(ctx, start, counter ? counter.length : length, null, event);
-    }
+    onFinished(res, function (err, res) {
+      log(ctx, start, counter ? counter.length : length, null, null);
+    })
   }
 }
 
